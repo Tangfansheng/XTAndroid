@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.MenuItem;
 
@@ -25,8 +26,7 @@ import com.example.XTproject.fragments.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends BaseActivity {
-    private Drawable drawable;
-    private TextView textView;
+
     private MenuItem mPreItem;
     private DrawerLayout mDrawableLayout;;
     private NavigationView mNavigationView;
@@ -34,6 +34,7 @@ public class HomeActivity extends BaseActivity {
     private androidx.appcompat.widget.Toolbar mToolBar;
     private FragmentManager mFragmentManger;
     private Fragment mCurrentFragment;
+    public static int permission;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_home;
@@ -41,7 +42,8 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        Intent intent = getIntent();
+        permission = intent.getIntExtra("permission", 2);//拿到操作权限
         mToolBar=bindViewId(R.drawable.ic_drawer_home);
         setSupportArrowActionBar(false);
         setTitle("首页");

@@ -1,7 +1,9 @@
 package com.example.XTproject.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
@@ -13,16 +15,23 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.example.XTproject.R;
+import com.example.XTproject.base.BaseActivity;
 
-public class MapTestActivity extends Activity {
+public class MapTestActivity extends BaseActivity {
     private MapView mMapView;
     private BaiduMap mBaiduMap;
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.map_test);
-        mMapView = findViewById(R.id.bmapView);
+    protected int getLayoutId() {
+        return R.layout.map_test;
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    protected void initView() {
+        setTitle("设备定位");
+        mMapView = bindViewId(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
         LatLng point = new LatLng(30.26, 120.19);
         BitmapDescriptor bitmap = BitmapDescriptorFactory
@@ -36,8 +45,13 @@ public class MapTestActivity extends Activity {
         //地图中心设置
         MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(point);
         mBaiduMap.setMapStatus(status);
+    }
+
+    @Override
+    protected void initData() {
 
     }
+
 
     @Override
     protected void onResume() {

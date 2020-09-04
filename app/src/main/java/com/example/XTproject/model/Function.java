@@ -9,6 +9,7 @@ public class Function {
     public static final int Syn = 4;
     public static final int Environment = 5;
     public static final int Loc = 6;
+    public static final int remoteController = 7;
 
     private int ID;
     private String FunctionName;
@@ -35,6 +36,9 @@ public class Function {
                 break;
             case Loc:
                 FunctionName= "北斗定位";
+                break;
+            case remoteController:
+                FunctionName= "养生开关";
                 break;
             default:
                 break;

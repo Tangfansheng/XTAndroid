@@ -1,5 +1,6 @@
 package com.example.XTproject.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +10,14 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.XTproject.R;
 import com.example.XTproject.activity.Environment_Monitor_Activity;
 import com.example.XTproject.activity.ForceMonitorListActivity;
+import com.example.XTproject.activity.HomeActivity;
 import com.example.XTproject.activity.MapTestActivity;
+import com.example.XTproject.activity.RemoteControllerActivity;
 import com.example.XTproject.activity.StressMonitorActivity;
 import com.example.XTproject.activity.SynVideoActivity;
 import com.example.XTproject.activity.VideoActivity;
@@ -68,6 +72,14 @@ public class HomeFragment extends BaseFragment {
                         intent = new Intent(getActivity(), MapTestActivity.class);
                         startActivity(intent);
                         break;
+                    case 6:
+                        intent = new Intent(getActivity(), RemoteControllerActivity.class);
+                        if(HomeActivity.permission == 1){
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(getContext(), "无权限操作", Toast.LENGTH_SHORT ).show();
+                        }
+
 
                     default:
                         //TODO 跳转对应的频道
@@ -94,7 +106,7 @@ public class HomeFragment extends BaseFragment {
         @Override
         public int getCount() {
             //控制图标的数量
-            return 6;
+            return 7;
         }
 
         @Override
@@ -142,6 +154,9 @@ public class HomeFragment extends BaseFragment {
                     break;
                 case Function.Loc:
                     imgResId = R.drawable.ic_loc;
+                    break;
+                case Function.remoteController:
+                    imgResId = R.drawable.ic_remoter;
                     break;
 
             }

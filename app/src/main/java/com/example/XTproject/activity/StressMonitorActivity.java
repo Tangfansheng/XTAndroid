@@ -12,13 +12,21 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.alibaba.fastjson.JSON;
 import com.example.XTproject.R;
 import com.example.XTproject.base.BaseActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class StressMonitorActivity extends BaseActivity {
     static final String TAG = "StressMonitor";
@@ -28,6 +36,11 @@ public class StressMonitorActivity extends BaseActivity {
     private int mount = 5; //桁架的测点数量
     List<Map<String, Object>> listItems;
     String[] iconNames = {"上平杆","前斜杆","立柱", "后拉杆", "下平杆"};
+    String[] key = {"upper", "front", "mid", "rear", "bottom"};
+
+    private static String data = null;
+    private static final String url = "http://120.26.187.166:8080/XTBridge_war/stress/recent";
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -47,8 +60,14 @@ public class StressMonitorActivity extends BaseActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                refreshData();
-                Toast.makeText(mContext, "数据刷新成功", Toast.LENGTH_SHORT).show();
+                doGet(url);
+                boolean refreshed = refreshData(data);
+                if(refreshed){
+                    Toast.makeText(mContext, "数据刷新成功", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(mContext, "数据刷新失败", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -60,26 +79,58 @@ public class StressMonitorActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        refreshData();
+        doGet(url);
+        refreshData(data);
 
     }
     //刷新页面数据
-    protected void refreshData(){
+    protected boolean refreshData(String jsonData){
         /**
          * Todo
          * 完成数据的请求：吊篮-锚杆-底篮等数据
          * 完成数据填充
          */
-
+        boolean refreshed = false;
+        Map<String, Float> map = (Map<String, Float>) JSON.parse(jsonData);
         listItems= new ArrayList<>();
-        for(int i = 0; i<mount; i++){
-            Map<String, Object> item = new HashMap<>();
-            item.put("header", iconNames[i]);
-            item.put("second", 100);
-            listItems.add(item);
+        if(map!=null && map.containsKey("rear")){
+            for(int i = 0; i<mount; i++){
+                Map<String, Object> item = new HashMap<>();
+                item.put("header", iconNames[i]);
+                item.put("second", map.get(key[i]));
+                listItems.add(item);
+            }
+            refreshed = true;
+        }else{
+            for(int i = 0; i<mount; i++){
+                Map<String, Object> item = new HashMap<>();
+                item.put("header", iconNames[i]);
+                item.put("second", 0);
+                listItems.add(item);
+            }
         }
         SimpleAdapter listAdapter = new SimpleAdapter(this, listItems, R.layout.data_list_item, new String[]{"header","second"},new int[]{R.id.tvF,R.id.tvS});
         listView.setAdapter(listAdapter);
+        return refreshed;
      }
+
+    private void doGet(String url){
+        OkHttpClient client= new OkHttpClient.Builder().build();
+        final Request request =new Request.Builder().url(url).get().build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result = response.body().string();
+                data = result;
+            }
+        });
+
+    }
 
 }

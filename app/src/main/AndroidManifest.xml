@@ -10,52 +10,53 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.example.XTproject.utils.AppManager"
+        android:name=".utils.AppManager"
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.example.XTproject.activity.MapTestActivity"></activity>
-        <!-- 主活动 -->
-        <activity
-            android:name="com.example.XTproject.activity.HomeActivity"
-            android:theme="@style/DefaultAppTheme">
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 注册 -->
+        </activity>
         <activity
-            android:name="com.example.XTproject.activity.ForceMonitorListActivity"
+            android:name=".activity.HomeActivity"
+            android:theme="@style/DefaultAppTheme"/>
+        <activity
+            android:name=".activity.ForceMonitorListActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name="com.example.XTproject.activity.BasketBottomActivity"
+            android:name=".activity.BasketBottomActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name="com.example.XTproject.activity.SynVideoActivity"
-            android:theme="@style/AppTheme.ActionBar" />
-
-        <activity
-            android:name="com.example.XTproject.activity.VideoActivity"
+            android:name=".activity.SynVideoActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name="com.example.XTproject.activity.Environment_Monitor_Activity"
+            android:name=".activity.VideoActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name="com.example.XTproject.activity.FrontDerrickActivity"
+            android:name=".activity.Environment_Monitor_Activity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name="com.example.XTproject.activity.RearAnchorActivity"
+            android:name=".activity.FrontDerrickActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name="com.example.XTproject.activity.StressMonitorActivity"
+            android:name=".activity.RemoteControllerActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name="com.example.XTproject.activity.PlayActivity"
+            android:name=".activity.RearAnchorActivity"
+            android:theme="@style/AppTheme.ActionBar" />
+        <activity
+            android:name=".activity.StressMonitorActivity"
+            android:theme="@style/AppTheme.ActionBar" />
+        <activity
+            android:name=".activity.PlayActivity"
             android:screenOrientation="landscape" />
+        <activity android:name=".activity.MapTestActivity" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
