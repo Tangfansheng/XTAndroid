@@ -37,7 +37,7 @@ public class RearAnchorActivity extends BaseActivity {
     private int mount = 6; //后锚杆
     List<Map<String, Object>> listItems;
     private static String data = null;
-    private static final String url = "http://120.26.187.166:8080/XTBridge_war/anchor/recent";
+    private static final String url = "http://120.26.187.166:8080/XTBridge/anchor/recent?vue=false";
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

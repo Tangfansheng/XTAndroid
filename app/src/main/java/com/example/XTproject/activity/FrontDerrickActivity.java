@@ -35,7 +35,7 @@ public class FrontDerrickActivity extends BaseActivity {
     private ListView listView;
     private int mount = 5; // 前吊杆
     List<Map<String, Object>> listItems;
-    private static final String url = "http://120.26.187.166:8080/XTBridge_war/derrick/recent";
+    private static final String url = "http://120.26.187.166:8080/XTBridge/derrick/recent?vue=false";
     private static String data = null;
 
     @SuppressLint("NewApi")
@@ -129,7 +129,5 @@ public class FrontDerrickActivity extends BaseActivity {
             }
         });
     }
-
-
 
 }

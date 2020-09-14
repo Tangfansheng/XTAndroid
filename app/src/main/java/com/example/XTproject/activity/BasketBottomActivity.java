@@ -37,7 +37,7 @@ public class BasketBottomActivity extends BaseActivity {
     private int mount = 4; // 前吊杆
     List<Map<String, Object>> listItems;
     String data;
-    String url = "http://120.26.187.166:8080/XTBridge_war/basket/recent";
+    String url = "http://120.26.187.166:8080/XTBridge/basket/recent?vue=false";
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

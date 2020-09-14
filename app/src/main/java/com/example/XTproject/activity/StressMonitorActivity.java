@@ -39,7 +39,7 @@ public class StressMonitorActivity extends BaseActivity {
     String[] key = {"upper", "front", "mid", "rear", "bottom"};
 
     private static String data = null;
-    private static final String url = "http://120.26.187.166:8080/XTBridge_war/stress/recent";
+    private static final String url = "http://120.26.187.166:8080/XTBridge/stress/recent?vue=false";
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

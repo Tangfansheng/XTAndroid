@@ -84,7 +84,7 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         protected void onPreExecute() {
-            queryLoginURL = "http://120.26.187.166:8080/XTBridge_war/login?username=" + userName;
+            queryLoginURL = "http://120.26.187.166:8080/XTBridge/check?username=" + userName;
         }
 
 
