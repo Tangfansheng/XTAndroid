@@ -50,6 +50,7 @@ public class RearAnchorActivity extends BaseActivity {
         setTitle("后锚杆力监测");
     }
 
+
     @Override
     protected void initView() {
         mToolBar = bindViewId(R.id.toolbar);
