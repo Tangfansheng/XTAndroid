@@ -1,4 +1,4 @@
-package com.example.XTproject.activity;
+package com.example.XTproject.activity.sensor;
 
 import android.content.Context;
 import android.os.Build;
@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.example.XTproject.R;
 import com.example.XTproject.base.BaseActivity;
 
@@ -28,18 +29,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class StressMonitorActivity extends BaseActivity {
-    static final String TAG = "StressMonitor";
+public class BasketBottomActivity extends BaseActivity {
+    static final String TAG = "BasketMonitor";
     private Context mContext;
     private Button button;
     private ListView listView;
-    private int mount = 5; //桁架的测点数量
+    private int mount = 4; // 前吊杆
     List<Map<String, Object>> listItems;
-    String[] iconNames = {"上平杆","前斜杆","立柱", "后拉杆", "下平杆"};
-    String[] key = {"upper", "front", "mid", "rear", "bottom"};
-
-    private static String data = null;
-    private static final String url = "http://120.26.187.166:8080/XTBridge/stress/recent?vue=false";
+    String data;
+    String url = "http://120.26.187.166:8080/XTBridge/basket/recent?vue=false";
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -49,12 +47,13 @@ public class StressMonitorActivity extends BaseActivity {
         this.mContext = this;
         setSupportActionBar();//表示当前页面支持ActionBar
         setSupportArrowActionBar(true);
-        setTitle("应力监测");
+        setTitle("挂篮底篮下放吊杆力监测");
     }
 
     @Override
     protected void initView() {
         mToolBar = bindViewId(R.id.toolbar);
+
         listView = bindViewId(R.id.data_list);
         button = bindViewId(R.id.refresh_data);
         button.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +73,7 @@ public class StressMonitorActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.stress_monitor_list;
+        return R.layout.basket_bottom_monitor_list;
     }
 
     @Override
@@ -91,20 +90,20 @@ public class StressMonitorActivity extends BaseActivity {
          * 完成数据填充
          */
         boolean refreshed = false;
-        Map<String, Float> map = (Map<String, Float>) JSON.parse(jsonData);
+        List<Float> list = JSON.parseArray(jsonData, Float.class);
         listItems= new ArrayList<>();
-        if(map!=null && map.containsKey("rear")){
+        if(list!=null && list.size() == mount){
             for(int i = 0; i<mount; i++){
                 Map<String, Object> item = new HashMap<>();
-                item.put("header", iconNames[i]);
-                item.put("second", map.get(key[i]));
+                item.put("header", i+1);
+                item.put("second", list.get(i));
                 listItems.add(item);
             }
             refreshed = true;
         }else{
             for(int i = 0; i<mount; i++){
                 Map<String, Object> item = new HashMap<>();
-                item.put("header", iconNames[i]);
+                item.put("header", i+1);
                 item.put("second", 0);
                 listItems.add(item);
             }
@@ -132,5 +131,6 @@ public class StressMonitorActivity extends BaseActivity {
         });
 
     }
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.XTproject.activity;
+package com.example.XTproject.activity.common;
 
 import android.content.Context;
 import android.content.Intent;
@@ -82,6 +82,7 @@ public class LoginActivity extends BaseActivity {
             this.password = password;
         }
 
+
         @Override
         protected void onPreExecute() {
             queryLoginURL = "http://120.26.187.166:8080/XTBridge/check?username=" + userName;
@@ -130,10 +131,5 @@ public class LoginActivity extends BaseActivity {
                 Toast.makeText(LoginActivity.this, "登录失败，请重新登录", Toast.LENGTH_SHORT).show();
             }
         }
-
-
-
-
-
     }
 }

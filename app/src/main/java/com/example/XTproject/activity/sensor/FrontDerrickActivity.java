@@ -1,7 +1,7 @@
-package com.example.XTproject.activity;
+package com.example.XTproject.activity.sensor;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +11,6 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 
 import com.alibaba.fastjson.JSON;
 import com.example.XTproject.R;
@@ -29,27 +28,25 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class RearAnchorActivity extends BaseActivity {
-    static final String TAG = "RearAnchorMonitor";
+public class FrontDerrickActivity extends BaseActivity {
+    static final String TAG = "FrontDerrick";
     private Context mContext;
     private Button button;
     private ListView listView;
-    private int mount = 6; //后锚杆
+    private int mount = 6; // 前吊杆
     List<Map<String, Object>> listItems;
+    private static final String url = "http://120.26.187.166:8080/XTBridge/derrick/recent?vue=false";
     private static String data = null;
-    private static final String url = "http://120.26.187.166:8080/XTBridge/anchor/recent?vue=false";
 
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @SuppressLint("NewApi")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = this;
         setSupportActionBar();//表示当前页面支持ActionBar
         setSupportArrowActionBar(true);
-        setTitle("后锚杆力监测");
+        setTitle("前吊杆力监测");
     }
-
 
     @Override
     protected void initView() {
@@ -61,12 +58,13 @@ public class RearAnchorActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 doGet(url);
-                boolean refreshed = refreshData(data);
+                boolean refreshed =refreshData(data);
                 if(refreshed){
                     Toast.makeText(mContext, "数据刷新成功", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(mContext, "数据刷新失败", Toast.LENGTH_SHORT).show();
                 }
+
 
             }
         });
@@ -74,15 +72,15 @@ public class RearAnchorActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.rear_anchor_monitor_list;
+        return R.layout.front_derr_monitor_list;
     }
 
     @Override
     protected void initData() {
         doGet(url);
         refreshData(data);
-
     }
+
     //刷新页面数据
     protected boolean refreshData(String jsonData) {
         /**
@@ -130,10 +128,6 @@ public class RearAnchorActivity extends BaseActivity {
                 data = result;
             }
         });
-
     }
-
-
-
 
 }

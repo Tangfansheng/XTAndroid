@@ -1,4 +1,4 @@
-package com.example.XTproject.activity;
+package com.example.XTproject.activity.video;
 
 import android.app.Activity;
 

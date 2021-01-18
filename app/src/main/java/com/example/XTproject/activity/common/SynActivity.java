@@ -1,10 +1,10 @@
-package com.example.XTproject.activity;
+package com.example.XTproject.activity.common;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -13,23 +13,20 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.example.XTproject.R;
+import com.example.XTproject.activity.sensor.BasketBottomActivity;
 import com.example.XTproject.base.BaseActivity;
 import com.example.XTproject.base.MyAdapter;
 import com.example.XTproject.model.Icon;
 
 import java.util.ArrayList;
 
-public class VideoActivity extends BaseActivity {
+public class SynActivity extends BaseActivity {
     private GridView gridView;
     private Context mContext;
     private BaseAdapter mAdapter ;
     private ArrayList<Icon> icons;
 
-    private String[] urls = {
-            "rtmp://58.200.131.2:1935/livetv/cctv13",
-            "rtmp://58.200.131.2:1935/livetv/cctv12",
-            "rtmp://58.200.131.2:1935/livetv/cctv5"};
-    private String[] titles = {"监控1", "监控2","监控3"};
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +37,7 @@ public class VideoActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.video_list_grid;
+        return R.layout.syn_video_list_grid;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -51,16 +48,15 @@ public class VideoActivity extends BaseActivity {
         mToolBar = bindViewId(R.id.toolbar);
         setSupportActionBar();//表示当前页面支持ActionBar
         setSupportArrowActionBar(true);
-        setTitle("远程监控");
+        setTitle("同步性监控");
 
     }
 
     @Override
     protected void initData() {
         icons= new ArrayList<>();
-        icons.add(new Icon(R.drawable.ic_camera, "挂篮全局监控"));
-        icons.add(new Icon(R.drawable.ic_camera, "挂篮侧模监控"));
-        icons.add(new Icon(R.drawable.ic_camera, "挂篮底篮监控"));
+        icons.add(new Icon(R.drawable.ic_syn, "挂篮底篮下放吊杆力监测"));
+        //icons.add(new Icon(R.drawable.ic_syn, "挂篮行走同步监控"));
         mAdapter = new MyAdapter<Icon>(icons, R.layout.item_grid_icon) {
             @Override
             public void bindView(ViewHolder holder, Icon obj) {
@@ -72,11 +68,16 @@ public class VideoActivity extends BaseActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(mContext, "你点击了~" + position + "~项", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext, PlayActivity.class);
-                intent.putExtra("url", urls[position]);
-                intent.putExtra("title", titles[position]);
-                startActivity(intent);
+                Intent intent;
+                switch (position){
+                    case 0:
+                        intent = new Intent(mContext, BasketBottomActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
+                }
+
             }
         });
     }

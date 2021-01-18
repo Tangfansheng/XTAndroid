@@ -1,8 +1,9 @@
-package com.example.XTproject.activity;
+package com.example.XTproject.activity.sensor;
 
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -13,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.example.XTproject.R;
 import com.example.XTproject.base.BaseActivity;
 
@@ -29,15 +29,15 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class BasketBottomActivity extends BaseActivity {
-    static final String TAG = "BasketMonitor";
+public class RearAnchorActivity extends BaseActivity {
+    static final String TAG = "RearAnchorMonitor";
     private Context mContext;
     private Button button;
     private ListView listView;
-    private int mount = 4; // 前吊杆
+    private int mount = 6; //后锚杆
     List<Map<String, Object>> listItems;
-    String data;
-    String url = "http://120.26.187.166:8080/XTBridge/basket/recent?vue=false";
+    private static String data = null;
+    private static final String url = "http://120.26.187.166:8080/XTBridge/anchor/recent?vue=false";
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -47,8 +47,9 @@ public class BasketBottomActivity extends BaseActivity {
         this.mContext = this;
         setSupportActionBar();//表示当前页面支持ActionBar
         setSupportArrowActionBar(true);
-        setTitle("挂篮底篮下放吊杆力监测");
+        setTitle("后锚杆力监测");
     }
+
 
     @Override
     protected void initView() {
@@ -73,7 +74,7 @@ public class BasketBottomActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.basket_bottom_monitor_list;
+        return R.layout.rear_anchor_monitor_list;
     }
 
     @Override
@@ -83,35 +84,35 @@ public class BasketBottomActivity extends BaseActivity {
 
     }
     //刷新页面数据
-    protected boolean refreshData(String jsonData){
+    protected boolean refreshData(String jsonData) {
         /**
          * Todo
          * 完成数据的请求：吊篮-锚杆-底篮等数据
          * 完成数据填充
          */
-        boolean refreshed = false;
+        boolean res = false;
         List<Float> list = JSON.parseArray(jsonData, Float.class);
-        listItems= new ArrayList<>();
-        if(list!=null && list.size() == mount){
-            for(int i = 0; i<mount; i++){
+        listItems = new ArrayList<>(mount);
+        if(list!=null&& list.size()==mount){
+            for (int i = 0; i < mount; i++) {
                 Map<String, Object> item = new HashMap<>();
-                item.put("header", i+1);
+                item.put("header", i + 1);
                 item.put("second", list.get(i));
                 listItems.add(item);
             }
-            refreshed = true;
+            res = true;
         }else{
-            for(int i = 0; i<mount; i++){
+            for (int i = 0; i < mount; i++) {
                 Map<String, Object> item = new HashMap<>();
-                item.put("header", i+1);
+                item.put("header", i + 1);
                 item.put("second", 0);
                 listItems.add(item);
             }
         }
-        SimpleAdapter listAdapter = new SimpleAdapter(this, listItems, R.layout.data_list_item, new String[]{"header","second"},new int[]{R.id.tvF,R.id.tvS});
+        SimpleAdapter listAdapter = new SimpleAdapter(this, listItems, R.layout.data_list_item, new String[]{"header", "second"}, new int[]{R.id.tvF, R.id.tvS});
         listView.setAdapter(listAdapter);
-        return refreshed;
-     }
+        return res;
+    }
 
     private void doGet(String url){
         OkHttpClient client= new OkHttpClient.Builder().build();
@@ -131,6 +132,8 @@ public class BasketBottomActivity extends BaseActivity {
         });
 
     }
+
+
 
 
 }

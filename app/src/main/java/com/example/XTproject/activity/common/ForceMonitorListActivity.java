@@ -1,4 +1,4 @@
-package com.example.XTproject.activity;
+package com.example.XTproject.activity.common;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 
 import com.example.XTproject.R;
+import com.example.XTproject.activity.sensor.FrontDerrickActivity;
+import com.example.XTproject.activity.sensor.RearAnchorActivity;
 import com.example.XTproject.base.BaseActivity;
 import com.example.XTproject.base.MyAdapter;
 import com.example.XTproject.model.Icon;

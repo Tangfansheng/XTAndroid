@@ -1,14 +1,13 @@
-package com.example.XTproject.activity;
-
+package com.example.XTproject.activity.video;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -20,13 +19,20 @@ import com.example.XTproject.model.Icon;
 
 import java.util.ArrayList;
 
-public class SynVideoActivity extends BaseActivity {
+public class VideoActivity extends BaseActivity {
     private GridView gridView;
     private Context mContext;
     private BaseAdapter mAdapter ;
     private ArrayList<Icon> icons;
 
-
+    private String[] urls = {
+            "rtmp://rtmp01open.ys7.com/openlive/47d580ba5d514074bd55bdfa98a7e7ee",
+            "rtmp://rtmp01open.ys7.com/openlive/47d580ba5d514074bd55bdfa98a7e7ee",
+            "rtmp://rtmp01open.ys7.com/openlive/47d580ba5d514074bd55bdfa98a7e7ee",
+            "rtmp://rtmp01open.ys7.com/openlive/47d580ba5d514074bd55bdfa98a7e7ee",
+            "rtmp://rtmp01open.ys7.com/openlive/47d580ba5d514074bd55bdfa98a7e7ee",
+    };
+    private String[] titles = {"全局监控", "监控1", "监控2","监控3","监控4"};
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +43,7 @@ public class SynVideoActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.syn_video_list_grid;
+        return R.layout.video_list_grid;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -48,15 +54,18 @@ public class SynVideoActivity extends BaseActivity {
         mToolBar = bindViewId(R.id.toolbar);
         setSupportActionBar();//表示当前页面支持ActionBar
         setSupportArrowActionBar(true);
-        setTitle("同步性监控");
+        setTitle("远程监控");
 
     }
 
     @Override
     protected void initData() {
         icons= new ArrayList<>();
-        icons.add(new Icon(R.drawable.ic_syn, "挂篮底篮下放吊杆力监测"));
-        icons.add(new Icon(R.drawable.ic_syn, "挂篮行走同步监控"));
+        icons.add(new Icon(R.drawable.ic_camera, "全局监控"));
+        icons.add(new Icon(R.drawable.ic_camera, "挂篮监控1"));
+        icons.add(new Icon(R.drawable.ic_camera, "挂篮监控2"));
+        icons.add(new Icon(R.drawable.ic_camera, "挂篮监控3"));
+        icons.add(new Icon(R.drawable.ic_camera, "挂篮监控4"));
         mAdapter = new MyAdapter<Icon>(icons, R.layout.item_grid_icon) {
             @Override
             public void bindView(ViewHolder holder, Icon obj) {
@@ -68,19 +77,10 @@ public class SynVideoActivity extends BaseActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent;
-                switch (position){
-                    case 0:
-                        intent = new Intent(mContext, BasketBottomActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        Toast.makeText(mContext, "该功能模块正在设计", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        break;
-                }
-
+                Intent intent = new Intent(mContext, PlayActivity.class);
+                intent.putExtra("url", urls[position]);
+                intent.putExtra("title", titles[position]);
+                startActivity(intent);
             }
         });
     }

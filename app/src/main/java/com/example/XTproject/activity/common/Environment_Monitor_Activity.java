@@ -1,4 +1,4 @@
-package com.example.XTproject.activity;
+package com.example.XTproject.activity.common;
 
 import android.content.Context;
 import android.os.Build;

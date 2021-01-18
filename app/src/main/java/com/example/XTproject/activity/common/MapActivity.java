@@ -1,4 +1,4 @@
-package com.example.XTproject.activity;
+package com.example.XTproject.activity.common;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -17,7 +17,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.example.XTproject.R;
 import com.example.XTproject.base.BaseActivity;
 
-public class MapTestActivity extends BaseActivity {
+public class MapActivity extends BaseActivity {
     private MapView mMapView;
     private BaiduMap mBaiduMap;
 

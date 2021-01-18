@@ -1,6 +1,5 @@
 package com.example.XTproject.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.XTproject.R;
-import com.example.XTproject.activity.Environment_Monitor_Activity;
-import com.example.XTproject.activity.ForceMonitorListActivity;
-import com.example.XTproject.activity.HomeActivity;
-import com.example.XTproject.activity.MapTestActivity;
-import com.example.XTproject.activity.RemoteControllerActivity;
-import com.example.XTproject.activity.StressMonitorActivity;
-import com.example.XTproject.activity.SynVideoActivity;
-import com.example.XTproject.activity.VideoActivity;
+import com.example.XTproject.activity.common.Environment_Monitor_Activity;
+import com.example.XTproject.activity.common.ForceMonitorListActivity;
+import com.example.XTproject.activity.common.HomeActivity;
+import com.example.XTproject.activity.common.MapActivity;
+import com.example.XTproject.activity.common.RemoteControllerActivity;
+import com.example.XTproject.activity.sensor.StressMonitorActivity;
+import com.example.XTproject.activity.common.SynActivity;
+import com.example.XTproject.activity.video.VideoActivity;
 import com.example.XTproject.base.BaseFragment;
 import com.example.XTproject.model.Function;
 
@@ -60,7 +59,7 @@ public class HomeFragment extends BaseFragment {
                         break;
                     case 3:
                         //同步性监控
-                        intent = new Intent(getActivity(), SynVideoActivity.class);
+                        intent = new Intent(getActivity(), SynActivity.class);
                         startActivity(intent);
                         break;
                     case 4:
@@ -69,7 +68,7 @@ public class HomeFragment extends BaseFragment {
                         startActivity(intent);
                         break;
                     case 5:
-                        intent = new Intent(getActivity(), MapTestActivity.class);
+                        intent = new Intent(getActivity(), MapActivity.class);
                         startActivity(intent);
                         break;
                     case 6:

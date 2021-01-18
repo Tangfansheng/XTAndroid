@@ -17,46 +17,46 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.LoginActivity">
+        <activity android:name=".activity.common.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".activity.common.HomeActivity"
             android:theme="@style/DefaultAppTheme"/>
         <activity
-            android:name=".activity.ForceMonitorListActivity"
+            android:name=".activity.common.ForceMonitorListActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".activity.BasketBottomActivity"
+            android:name=".activity.sensor.BasketBottomActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".activity.SynVideoActivity"
+            android:name=".activity.common.SynActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".activity.VideoActivity"
+            android:name=".activity.video.VideoActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".activity.Environment_Monitor_Activity"
+            android:name=".activity.common.Environment_Monitor_Activity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".activity.FrontDerrickActivity"
+            android:name=".activity.sensor.FrontDerrickActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".activity.RemoteControllerActivity"
+            android:name=".activity.common.RemoteControllerActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".activity.RearAnchorActivity"
+            android:name=".activity.sensor.RearAnchorActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".activity.StressMonitorActivity"
+            android:name=".activity.sensor.StressMonitorActivity"
             android:theme="@style/AppTheme.ActionBar" />
         <activity
-            android:name=".activity.PlayActivity"
+            android:name=".activity.video.PlayActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.MapTestActivity" />
+        <activity android:name=".activity.common.MapActivity" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
